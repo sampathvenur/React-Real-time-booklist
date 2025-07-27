@@ -13,6 +13,12 @@ function App() {
   const [newBookTitle, setNewBookTitle] = useState('');
   const [newBookAuthor, setNewBookAuthor] = useState('');
 
+  // State for loading indicator for initial data fetch
+  const [isLoading, setIsLoading] = useState(true);
+
+  // State to track WebSocket connection status
+  const [isConnected, setIsConnected] = useState(socket.connected);
+
   // State for editing
   const [editingBookId, setEditingBookId] = useState(null);
   const [editTitle, setEditTitle] = useState('');
@@ -26,9 +32,23 @@ function App() {
       .catch(err => console.error('Error fetching message:', err));
 
     // --- WebSocket Event Listeners ---
+    // Update connection status
+    socket.on('connect', () => {
+      console.log('Socket connected.');
+      setIsConnected(true);
+      setIsLoading(true);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Socket disconnected.');
+      setIsConnected(false);
+      setIsLoading(true);
+    });
+
     socket.on('initial-books', (initialBooks) => {
       console.log('Received initial books:', initialBooks);
       setBooks(initialBooks);
+      setIsLoading(false);
     });
 
     socket.on('book-added', (newBook) => {
@@ -52,8 +72,11 @@ function App() {
       );
     });
 
-    // Cleanup function: Disconnect socket when component unmounts
+
+    // Cleanup function: remove listeners when component unmounts
     return () => {
+      socket.off('connect');
+      socket.off('disconnect');
       socket.off('initial-books');
       socket.off('book-added');
       socket.off('book-updated');
@@ -151,6 +174,20 @@ function App() {
     }
   };
 
+  // Determine what message to show
+  const displayMessage = () => {
+    if (!isConnected) {
+      return "Connecting to server... Please wait."; // Show this if socket is not connected
+    }
+    if (isLoading) {
+      return "Loading books... Please wait."; // Show this if connected, but initial books not yet loaded
+    }
+    if (books.length === 0) {
+      return "No books found. Add some!"; // Show this if connected, loaded, and book list is empty
+    }
+    return null; // Will render the book list
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -177,8 +214,8 @@ function App() {
         </form>
 
         <h2>Current Books:</h2>
-        {books.length === 0 ? (
-          <p>No books found. Add some!</p>
+        {displayMessage() ? (
+          <p>{displayMessage()}</p>
         ) : (
           <ul style={{ listStyleType: 'none', padding: 0 }}>
             {books.map((book) => (
