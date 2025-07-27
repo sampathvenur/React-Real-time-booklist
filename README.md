@@ -114,8 +114,8 @@ The frontend is responsible for:
 
 1.  **Clone the repository (if not already done):**
     ```bash
-    git clone YOUR_REPO_URL D:\codebase\React-task
-    cd D:\codebase\React-task
+    git clone https://github.com/sampathvenur/React-Real-time-booklist.git
+    cd React-Real-time-booklist
     ```
 2.  **Navigate to the backend and install dependencies:**
     ```bash
@@ -161,55 +161,7 @@ The frontend is responsible for:
 
 ---
 
-## 4. Maintenance and Troubleshooting
-
-### Maintenance:
-
-* **Dependency Updates**: Regularly update `socket.io` and `socket.io-client` packages to their latest versions to benefit from bug fixes, performance improvements, and security patches.
-    ```bash
-    # In backend folder
-    npm update socket.io
-    # In frontend folder
-    npm update socket.io-client
-    ```
-* **CORS Configuration**: Ensure your Socket.IO server's CORS configuration (`origin`, `methods`) correctly matches your frontend's URL and allowed HTTP methods, especially if deploying to different domains.
-* **Event Naming**: Maintain clear and consistent naming conventions for your Socket.IO events (e.g., `book-added`, `user-joined`) to improve code readability and prevent conflicts.
-* **Scalability Considerations**: For very high-traffic applications, consider using a Redis adapter for Socket.IO to enable horizontal scaling across multiple backend instances.
-* **Security**: Be mindful of what data you broadcast. Do not emit sensitive information directly. Implement authentication and authorization for WebSocket connections if needed for specific features.
-
-### Troubleshooting:
-
-* **"Connection Refused" / "ERR_CONNECTION_REFUSED"**:
-    * **Check Backend Server**: Ensure your backend server is running and listening on the correct port (e.g., `http://localhost:5000`).
-    * **Firewall**: Temporarily disable your firewall to see if it's blocking the connection.
-    * **Port Conflicts**: Ensure no other application is using port 5000.
-* **No Real-time Updates / UI Not Reacting**:
-    * **Backend Console**: Check the backend console for "New client connected" and "Client disconnected" messages. This confirms basic Socket.IO connection.
-    * **Frontend Console**: Check the frontend browser's developer console for any WebSocket-related errors or messages (e.g., `socket.on` not being triggered, `socket.io.js` errors).
-    * **Event Mismatch**: Verify that the event names emitted by the backend (`io.emit('event-name', data)`) exactly match the event names listened to by the frontend (`socket.on('event-name', callback)`). Typos are common.
-    * **CORS Issues**: Look for CORS errors in your browser console (e.g., "Cross-Origin Request Blocked"). Adjust the `cors` configuration in your `Socket.IO Server` initialization.
-    * **State Updates**: Ensure your frontend's state update logic (`setBooks((prevBooks) => ... )`) is correctly implemented to trigger re-renders.
-* **Socket.IO Debugging**:
-    * Enable debug logging for Socket.IO by setting the `DEBUG` environment variable in your backend:
-        ```bash
-        # On Linux/macOS
-        DEBUG=socket.io* npm start
-        # On Windows (Command Prompt)
-        set DEBUG=socket.io* & npm start
-        # On Windows (PowerShell)
-        $env:DEBUG='socket.io*' ; npm start
-        ```
-    * For the frontend, you can also enable debug mode:
-        ```javascript
-        // In App.js before connecting
-        localStorage.debug = 'socket.io-client:*';
-        const socket = io('http://localhost:5000');
-        ```
-    * These debug logs provide detailed information about WebSocket handshakes, events, and disconnections.
-
----
-
-## 5. Chrome Developer Tools Network Tab Activity
+## 4. Chrome Developer Tools Network Tab Activity
 
 When testing the real-time features, observe the **Network tab** in Chrome Developer Tools (F12).
 
@@ -217,3 +169,6 @@ When testing the real-time features, observe the **Network tab** in Chrome Devel
 * **Frames**: Click on the WebSocket connection entry, then select the "Messages" or "Frames" tab. Here, you will see the actual data frames being sent and received over the WebSocket connection.
     * When you add a book via the UI, you'll see outgoing HTTP `POST` requests, but more importantly, you'll see incoming WebSocket messages (frames) containing the `book-added` event and the new book data.
     * Similarly, for updates and deletions, you'll observe the corresponding event frames.
+
+
+ ![Chrome Developers tools](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
