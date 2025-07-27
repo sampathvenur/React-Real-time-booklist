@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import './App.css';
 
-const socket = io('http://localhost:5000'); // Connect to backend Socket.IO server
+// Environment variable for backend URL, fallback to localhost for development
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
+const socket = io(BACKEND_URL); // Connection to backend Socket.IO server
 
 function App() {
   const [message, setMessage] = useState('');
@@ -12,7 +15,7 @@ function App() {
 
   useEffect(() => {
     // Fetch initial message from backend (HTTP GET)
-    fetch('http://localhost:5000/')
+    fetch(`${BACKEND_URL}/`)
       .then(res => res.text())
       .then(data => setMessage(data))
       .catch(err => console.error('Error fetching message:', err));
@@ -71,7 +74,7 @@ function App() {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/books', {
+      const response = await fetch(`${BACKEND_URL}/api/books`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +86,6 @@ function App() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // No need to manually update state here; WebSocket will handle it
       setNewBookTitle('');
       setNewBookAuthor('');
     } catch (error) {
@@ -93,15 +95,13 @@ function App() {
 
   const handleDeleteBook = async (bookId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/books/${bookId}`, {
+      const response = await fetch(`${BACKEND_URL}/api/books/${bookId}`, {
         method: 'DELETE',
       });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
-      // No need to manually update state here; WebSocket will handle it
     } catch (error) {
       console.error('Error deleting book:', error);
     }
