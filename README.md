@@ -144,7 +144,7 @@ The frontend is responsible for:
     * Open `http://localhost:3000` in your browser.
     * Use the "Add New Book" form to add a book. Observe that the list updates instantly.
     * Use the "Delete" button to remove a book. Observe the instant update.
-    * *(If an update UI is added)*: Update a book and observe the instant change.
+    * Use the "Edit" button to Update a book and observe the instant change.
 
 2.  **Multi-Client Broadcast Test:**
     * Open `http://localhost:3000` in **two separate browser tabs or windows**.
