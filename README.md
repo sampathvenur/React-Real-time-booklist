@@ -170,5 +170,37 @@ When testing the real-time features, observe the **Network tab** in Chrome Devel
     * When you add a book via the UI, you'll see outgoing HTTP `POST` requests, but more importantly, you'll see incoming WebSocket messages (frames) containing the `book-added` event and the new book data.
     * Similarly, for updates and deletions, you'll observe the corresponding event frames.
 
+![Chrome Developers tools ](https://github.com/sampathvenur/React-Real-time-booklist/blob/main/assets/Chrome_Developers_tools.jpg?raw=true)
 
- ![Chrome Developers tools](https://github.com/sampathvenur/React-Real-time-booklist/blob/main/assets/Chrome_Developers_tools.jpg?raw=true)
+---
+
+## 5. Deployment & Monitoring
+
+This application is deployed using render.com and vercel.com & monitored using uptimerobot.com (free hosting service) to demonstrate its real-time capabilities in a live environment.
+
+![Uptimerobot Monitoring ](https://github.com/sampathvenur/React-Real-time-booklist/blob/main/assets/deployed.jpg?raw=true)
+
+### 5.1. Deployed Links
+
+* **Live Frontend:** [https://react-real-time-booklist.vercel.app]
+* **Live Backend API & WebSocket Endpoint:** [https://react-real-time-booklist.onrender.com]
+
+### 5.2. Hosting Platforms
+
+* **Backend:** Hosted on **Render**, which provides native support for WebSockets, making it suitable for our Socket.IO server.
+* **Frontend:** Hosted on **Vercel**, known for its seamless integration with React applications and fast deployments.
+
+### 5.3. Monitoring Setup
+
+* **Manual Sanity Check:** As described in section 3, performing actions on one client and observing updates on another is the primary manual test for real-time functionality.
+* **UptimeRobot Monitoring:** For continuous basic uptime monitoring, an UptimeRobot monitor has been configured to ping the backend API endpoint every 5 minutes. This helps ensure the backend service remains accessible.
+    * **Monitor Target:** `[https://react-real-time-booklist.onrender.com]`
+
+![Uptimerobot Monitoring ](https://github.com/sampathvenur/React-Real-time-booklist/blob/main/assets/Monitoring.jpg?raw=true)
+
+### 5.4. Log Checking Instructions
+
+* **Frontend (Browser Developer Console):**
+    * Open your deployed frontend in a browser and press `F12`.
+    * **Console Tab:** Check for JavaScript errors, network errors (e.g., CORS issues if URLs are misconfigured), or WebSocket client-side debugging messages.
+    * **Network Tab (WS filter):** Monitor the WebSocket connection and the `Frames` tab within it to see incoming and outgoing real-time messages.
