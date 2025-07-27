@@ -178,7 +178,7 @@ When testing the real-time features, observe the **Network tab** in Chrome Devel
 
 This application is deployed using render.com and vercel.com & monitored using uptimerobot.com (free hosting service) to demonstrate its real-time capabilities in a live environment.
 
-![Uptimerobot Monitoring ](https://github.com/sampathvenur/React-Real-time-booklist/blob/main/assets/deployed.jpg?raw=true)
+![deployed ](https://github.com/sampathvenur/React-Real-time-booklist/blob/main/assets/deployed.jpg?raw=true)
 
 ### 5.1. Deployed Links
 
