@@ -171,4 +171,4 @@ When testing the real-time features, observe the **Network tab** in Chrome Devel
     * Similarly, for updates and deletions, you'll observe the corresponding event frames.
 
 
- ![Chrome Developers tools](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+ ![Chrome Developers tools](https://github.com/sampathvenur/React-Real-time-booklist/blob/main/assets/Chrome_Developers_tools.jpg?raw=true)
