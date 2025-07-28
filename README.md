@@ -1,6 +1,9 @@
-# Real-time Update Feature for Book Management App
+# Sampath Kumar_Sahyadri College Of Engineering And Management_React_TASK 8
 
 This document explains the implementation of real-time updates in the full-stack book management application, allowing connected clients to instantly see changes (additions, updates, deletions) to the book list without requiring a page refresh.
+
+Detailed Docs & Results: https://docs.google.com/document/d/1Hkg1KY0X8iP-r_P8YhZy2UAph1rlsYDVeOQD2VtRfrQ/edit?usp=sharing  
+Live : https://react-real-time-booklist.vercel.app
 
 ## 1. Technology Used
 
